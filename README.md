@@ -1,3 +1,6 @@
+Django Bitmeyen Hikaye Projesi
+Demo Adresi :
+
 ## Bitmeyen Hikaye Uygulaması
 > Kullanıcı Adı : yonetici
 > Şifre : BHadministrator
