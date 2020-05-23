@@ -1,0 +1,99 @@
+{% extends 'anasayfa.html' %}
+{% load static %}
+{% block content %}
+    <script>
+        $('#dom-table').DataTable();
+    </script>
+    <!-- Main-body start -->
+    <div class="main-body">
+        <div class="page-wrapper">
+            <!-- Page header start -->
+            <div class="page-header">
+            </div>
+            <!-- Page header end -->
+            <!-- Page body start -->
+            <div class="page-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <!-- Bootstrap tab card start -->
+
+                        <div class="row">
+
+
+                            <div class="col-md-12">
+
+
+                                <!-- HTML (DOM) Sourced Data table start -->
+                                <div class="card">
+
+                                    {% for hikaye in hikayeler %}
+
+                                        <div class="card-block">
+                                            <div class="card user-card">
+                                                <div class="card-block">
+                                                    <div class="media">
+                                                        {% if hikaye.hikayeGorsel == '' %}
+                                                            <a class="media-left" href="#">
+                                                                <img style="height: 100px" class="media-object card-list-img img-100 img-responsive"
+                                                                     src="{% static 'assets/images/no-story.png' %}"
+                                                                     alt="Hikaye Görseli">
+                                                            </a>
+                                                        {% else %}
+                                                            <a class="media-left" href="#">
+                                                                <img style="height: 100px;"class="media-object card-list-img img-100 img-responsive"
+                                                                     src="/media/{{ hikaye.hikayeGorsel }}"
+                                                                     alt="Hikaye Görseli">
+                                                            </a>
+                                                        {% endif %}
+                                                        <div class="media-body">
+                                                            <div class="col-xs-12">
+
+
+                                                                <h6 class="text-primary">
+                                                                    <strong>{{ hikaye.hikayeAdi }}</strong></h6>
+
+                                                            </div>
+                                                            <p>{{ hikaye.hikayeOzet }}</p>
+
+                                                            <div class="m-t-15">
+                                                                <a href="/hikaye/{{ hikaye.id }}/"
+                                                                   class="btn btn-facebook btn-sm waves-effect waves-light">
+                                                                    Hikayeyi Oku
+                                                                    <span class="icofont icofont-double-right"></span>
+                                                                </a>
+                                                                 <a href="/cevap-yaz/{{ hikaye.id }}/"
+                                                                   class="btn btn-primary btn-sm waves-effect waves-light">
+                                                                    Cevap Yaz
+                                                                    <span class="icofont icofont-double-right"></span>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% empty %}
+                                        <div class="text-center text-primary m-t-50"><i class="icofont icofont-emo-crying icofont-5x"></i> </div>
+                                        <div style="margin-left: 5%; margin-right: 5%;"
+                                             class="alert alert-primary icons-alert m-t-20">
+                                            <p><strong>Maalesef bu kategoride henüz hiç hikaye başlatılmamış...</strong>
+                                            </p>
+                                        </div>
+                                    {% endfor %}
+
+
+                                </div>
+                                <!-- HTML (DOM) Sourced Data table end -->
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Page body end -->
+                </div>
+            </div>
+            <!-- Main-body end -->
+        </div>
+    </div>
+
+{% endblock %}

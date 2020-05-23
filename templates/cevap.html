@@ -1,0 +1,106 @@
+{% extends 'anasayfa.html' %}
+{% load static %}
+{% block content %}
+
+    <link rel="stylesheet" type="text/css"
+          href="https://cdn.map.web.tr/bower_components/animate.css/animate.css"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/pages/notification/notification.css' %}">
+    <!-- Main-body start -->
+    <div class="main-body">
+        <div class="page-wrapper">
+            <!-- Page header start -->
+            <div class="page-header">
+            </div>
+            <!-- Page header end -->
+            <!-- Page body start -->
+            <div class="page-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <!-- Bootstrap tab card start -->
+
+                        <div class="row">
+
+
+                            <div class="col-md-12">
+
+
+                                <!-- HTML (DOM) Sourced Data table start -->
+                                <div class="card">
+                                    <div class="card-block">
+
+                                        <div class="text-center"><h5>Devam Yazılan Hİkaye
+                                            :
+                                            <span class="text-primary">{{ hikaye.hikayeAdi|default:'Hikaye Yok' }}</span>
+                                            - TARİH
+                                            : <span class="text-warning">{% now "j F Y H:i" %}</span> - Yazar
+                                            : <span class="text-info">{{ user.first_name }} {{ user.last_name }}</span>
+                                        </h5>
+                                            <p>Devam yazılan hikayeler moderatör onayından sonra diğer hikaye cevapları
+                                                arasından seçilerek yayınlanmaktadır. Lütfen hikayeniz yayınlanana kadar
+                                                sabırla bekleyiniz.</p></div>
+                                        <br>
+                                        <form method="post">
+                                            {% csrf_token %}
+                                            <textarea required name="hikayeCevap" id="editor1"
+                                                      placeholder="Lütfen hikaye devam metnini bu alana yazınız.."
+                                                      rows="25"
+                                                      class="form-control"></textarea>
+                                            <div class="text-center m-t-20"><input type="submit"
+                                                                                   value="Devam Metnini Gönder"
+                                                                                   class="btn btn-primary"></div>
+
+                                        </form>
+                                    </div>
+
+
+                                </div>
+                                <!-- HTML (DOM) Sourced Data table end -->
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Page body end -->
+                </div>
+            </div>
+            <!-- Main-body end -->
+        </div>
+    </div>
+
+{% endblock %}
+{% block js %}
+
+
+    <script type="text/javascript" src="{% static 'assets/js/bootstrap-growl.min.js' %}"></script>
+    {% if messages %}
+              <script>
+            $(window).on('load', function () {
+                function notify(message, type) {
+                    $.growl({
+                        message: message
+                    }, {
+                        type: type,
+                        allow_dismiss: false,
+                        label: 'Cancel',
+                        className: 'btn-xs btn-inverse',
+                        placement: {
+                            from: 'bottom',
+                            align: 'center'
+                        },
+                        delay: 5000,
+                        z_index: 999999,
+                        animate: {
+                            enter: 'animated fadeInDown',
+                            exit: 'animated fadeOutUp'
+                        },
+
+                    });
+                };
+
+                {% for mesaj in messages|slice:"1" %}
+                    notify('{{ mesaj }}', 'inverse');
+                {% endfor %}
+            });
+        </script>
+    {% endif %}
+{% endblock %}

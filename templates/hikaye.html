@@ -1,0 +1,210 @@
+{% extends 'anasayfa.html' %}
+{% load static %}
+{% block content %}
+        <link rel="stylesheet" type="text/css"
+          href="https://cdn.map.web.tr/bower_components/animate.css/animate.css"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/pages/notification/notification.css' %}">
+    <!-- Main-body start -->
+    <div class="main-body">
+        <div class="page-wrapper">
+            <!-- Page header start -->
+            <div class="page-header">
+            </div>
+            <!-- Page header end -->
+            <!-- Page body start -->
+            <div class="page-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <!-- Bootstrap tab card start -->
+
+                        <div class="row">
+
+
+                            <div class="col-md-12">
+
+
+                                <!-- HTML (DOM) Sourced Data table start -->
+                                <div class="card">
+                                    <div class="card-block">
+
+                                        <div class="text-center"><h5
+                                                class="label label-inverse-primary">{{ hikaye.hikayeAdi|default:'Hikaye Yok' }}</h5>
+                                        </div>
+                                        <div class="timeline-item"
+                                             date-is='{{ hikaye.hikayeTarih|default:' ' }}'>
+
+                                             <span id="idHikaye" data-toggle="collapse"
+                                                   href="#collapseHikaye"
+                                                   class="float-right label label-inverse icofont icofont-collapse icofont-2x">Hikaye Ana Metnini Gizle / Göster</span>
+
+                                            <p id="collapseHikaye" class="panel-collapse in collapse show"
+                                               role="tabpanel"
+                                               aria-labelledby="headingHikaye"
+                                               aria-expanded="true">{{ hikaye.hikayeMetni|default:'Lütfen geçerli bir hikayeye ulaştığınızdan emin olunuz!' }}</p>
+                                            <div>
+                                                <script>
+                                                if (localStorage.getItem("hikaye-{{ hikaye.id }}-like") == null && localStorage.getItem("hikaye-{{ hikaye.id }}-dislike") == null) {
+                                                    document.write('<i id="hikaye-{{ hikaye.id }}-like" class="btn btn-sm btn-success icofont icofont-ui-rate-add m-l-5"> </i>');
+                                                    document.write('<i id="hikaye-{{ hikaye.id }}-dislike" class="btn btn-sm btn-danger icofont icofont-ui-rate-remove m-r-5"> </i>');
+
+                                                    $("#hikaye-{{ hikaye.id }}-like").click(function () {
+                                                        $.ajax({
+                                                            url: "/begen/{{ hikaye.id }}/0/",
+                                                            method: 'POST',
+                                                            dataType: 'json',
+                                                            data: {
+                                                                'islem': '+1',
+                                                                csrfmiddlewaretoken: "{{ csrf_token }}"
+                                                            }
+                                                        }).done(function (response) {
+                                                                     localStorage.setItem("hikaye-{{ hikaye.id }}-like", "+1");
+                                                                     location.reload();
+
+                                                        });
+
+                                                    });
+
+                                                    $("#hikaye-{{ hikaye.id }}-dislike").click(function () {
+                                                        $.ajax({
+                                                            url: "/begen/{{ hikaye.id }}/0/",
+                                                            method: 'POST',
+                                                            dataType: 'json',
+                                                            data: {
+                                                                'islem': '-1',
+                                                                csrfmiddlewaretoken: "{{ csrf_token }}"
+                                                            }
+                                                        }).done(function (response) {
+                                                            localStorage.setItem("hikaye-{{ hikaye.id }}-dislike", "-1");
+                                                            location.reload();
+                                                        });
+                                                    });
+                                                }
+
+
+                                                    </script>
+                                            </div>
+
+                                        </div>
+
+                                        {% for cevaplar in cevap %}
+                                            <div class="timeline-item"
+                                                 date-is='{{ cevaplar.hikayeCevapTarih }}'>
+                                                <span id="{{ forloop.counter }}" data-toggle="collapse"
+                                                      href="#collapse{{ forloop.counter }}"
+                                                      class="float-right label label-inverse icofont icofont-collapse icofont-2x">Bölümü Gizle / Göster</span>
+
+                                                <p id="collapse{{ forloop.counter }}"
+                                                   class="panel-collapse in collapse show"
+                                                   role="tabpanel"
+                                                   aria-labelledby="heading{{ forloop.counter }}"
+                                                   aria-expanded="true">{{ cevaplar.hikayeCevapMetni }}</p>
+                                                <p><i>Yazar :
+                                                    <b>{{ cevaplar.uyeId.first_name }} {{ cevaplar.uyeId.last_name }}</b></i>
+                                                </p>
+                                                <div>
+                                                    <script>
+                                                        if (localStorage.getItem("cevap-{{ cevaplar.id }}-like") == null && localStorage.getItem("cevap-{{ cevaplar.id }}-dislike") == null) {
+                                                            document.write('<i id="cevap-{{ cevaplar.id }}-like" class="btn btn-sm btn-success icofont icofont-ui-rate-add m-l-5"> </i>');
+                                                            document.write('<i id="cevap-{{ cevaplar.id }}-dislike" class="btn btn-sm btn-danger icofont icofont-ui-rate-remove m-r-5"> </i>');
+
+                                                            $("#cevap-{{ cevaplar.id }}-like").click(function () {
+                                                                $.ajax({
+                                                                    url: "/begen/{{ cevaplar.hikayeId.id }}/{{ cevaplar.id }}/",
+                                                                    method: 'POST',
+                                                                    dataType: 'json',
+                                                                    data: {
+                                                                        'islem': '+1',
+                                                                        csrfmiddlewaretoken: "{{ csrf_token }}"
+                                                                    }
+                                                                }).done(function (response) {
+                                                                     localStorage.setItem("cevap-{{ cevaplar.id }}-like", "+1");
+                                                                     location.reload();
+
+                                                                });
+
+                                                            });
+
+                                                            $("#cevap-{{ cevaplar.id }}-dislike").click(function () {
+                                                                                                                               $.ajax({
+                                                                    url: "/begen/{{ cevaplar.hikayeId.id }}/{{ cevaplar.id }}/",
+                                                                    method: 'POST',
+                                                                    dataType: 'json',
+                                                                    data: {
+                                                                        'islem': '-1',
+                                                                        csrfmiddlewaretoken: "{{ csrf_token }}"
+                                                                    }
+                                                                }).done(function (response) {
+                                                                     localStorage.setItem("cevap-{{ cevaplar.id }}-dislike", "-1");
+                                                                     location.reload();
+                                                                });
+                                                            });
+                                                        }
+
+
+                                                    </script>
+                                                </div>
+                                            </div>
+
+                                        {% empty %}
+                                            <div class="alert alert-info icons-alert m-t-20">
+                                                <p><strong>Maalesef {{ hikaye.hikayeAdi }} adlı hikayeye henüz
+                                                    hiç cevap
+                                                    yazılmamış :( İlk yazan sen olmak ister misin?</strong></p>
+                                            </div>
+                                        {% endfor %}
+
+                                    </div>
+
+                                    <a href="/cevap-yaz/{{ hikaye.id }}/"
+                                       class="btn btn-primary btn-md waves-effect waves-light">
+                                        Bu Hikayeye Cevap Yazarak Katkıda Bulun! Adınla Yayınlansın...
+                                        <span class="icofont icofont-double-right"></span>
+                                    </a>
+                                </div>
+                                <!-- HTML (DOM) Sourced Data table end -->
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Page body end -->
+                </div>
+            </div>
+            <!-- Main-body end -->
+        </div>
+    </div>
+
+{% endblock %}
+{% block js %}
+
+
+    <script type="text/javascript" src="{% static 'assets/js/bootstrap-growl.min.js' %}"></script>
+
+              <script>
+
+                function notify(message, type) {
+                    $.growl({
+                        message: message
+                    }, {
+                        type: type,
+                        allow_dismiss: false,
+                        label: 'Cancel',
+                        className: 'btn-xs btn-inverse',
+                        placement: {
+                            from: 'bottom',
+                            align: 'center'
+                        },
+                        delay: 5000,
+                        z_index: 999999,
+                        animate: {
+                            enter: 'animated fadeInDown',
+                            exit: 'animated fadeOutUp'
+                        },
+
+                    });
+                };
+
+
+        </script>
+
+{% endblock %}

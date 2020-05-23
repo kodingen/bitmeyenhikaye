@@ -1,0 +1,93 @@
+{% extends 'anasayfa.html' %}
+{% load static %}
+{% block content %}
+    <script>
+        $('#dom-table').DataTable();
+    </script>
+    <!-- Main-body start -->
+    <div class="main-body">
+        <div class="page-wrapper">
+            <!-- Page header start -->
+            <div class="page-header">
+                <div class="page-header-title">
+                    <h4>Profil İşlemleri</h4>
+                </div>
+                <div class="page-header-breadcrumb">
+                    <ul class="breadcrumb-title">
+                        <li class="breadcrumb-item">
+                            <a href="anasayfa">
+                                <i class="icofont icofont-home"></i>
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item"><a href="#!">Hesap İşlemleri</a>
+                        </li>
+                        <li class="breadcrumb-item"><a href="/profilim">Profil İşlemleri</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Page header end -->
+            <!-- Page body start -->
+            <div class="page-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <!-- Bootstrap tab card start -->
+
+                        <div class="row">
+                            <div class="col-sm-12">
+
+
+                                <!-- HTML (DOM) Sourced Data table start -->
+                                <div class="card">
+                                    <div class="card-header">
+                                        <span>Bilgilendirme : Lütfen şifrenizi not alınız, şifre unutulma durumunda şifre sıfırlama işlemi sadece sistem yöneticisi tarafından sağlanmaktadır. </span>
+                                        <span>Parola oluştururken lütfen şunlara dikkat ediniz : Parolanız; diğer <code>kişisel bilgileriniz ile çok benzer olamaz</code>,
+                                        <code>en az 8 karakter</code> içermek zorunda,
+                                         <code>genellikle kullanılan bir parola olamaz</code>,
+                                         <code>tamamıyla sayısal olamaz.</code></span>
+                                        {% if messages %}
+                                            {% for message in messages %}
+                                                <script>alert("{{ message }}");</script>
+                                            {% endfor %}
+                                        {% endif %}
+
+                                        <div class="card-header-right">
+                                            <i class="icofont icofont-rounded-down"></i>
+                                            <i class="icofont icofont-refresh"></i>
+                                        </div>
+                                    </div>
+                                    <div class="card-block">
+
+                                        <form method="post">{% csrf_token %}
+                                            <div class="form-group row">
+                                                <div class="col-md-3">
+                                                    {{ form }}
+
+                                                    <br>
+                                                    <input name="Kaydet" type="submit" class="btn btn-info"
+                                                           value="Şifre Güncelle">
+
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <img src="{% static 'assets/images/sifre-sifirla.png' %}">
+                                                </div>
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- HTML (DOM) Sourced Data table end -->
+
+
+                        </div>
+                    </div>
+                </div>
+                <!-- Page body end -->
+            </div>
+        </div>
+        <!-- Main-body end -->
+    </div>
+    </div>
+
+{% endblock %}

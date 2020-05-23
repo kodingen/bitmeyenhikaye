@@ -1,0 +1,243 @@
+{% extends 'anasayfa.html' %}
+{% load static %}
+{% block content %}
+    <script>
+        $('#dom-table').DataTable();
+    </script>
+    <!-- Main-body start -->
+    <div class="main-body">
+        <div class="page-wrapper">
+            <!-- Page header start -->
+            <div class="page-header">
+            </div>
+            <!-- Page header end -->
+            <!-- Page body start -->
+            <div class="page-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <!-- Bootstrap tab card start -->
+
+                        <div class="row">
+
+                            <div class="col-md-12 col-xl-4">
+
+                                <div class="card table-card">
+                                    <div class="">
+                                        <div class="row-table">
+                                            <div class="col-sm-6 card-block-big br">
+                                                <div class="row">
+                                                    <div class="col-sm-4">
+                                                        <i class="icofont icofont-education text-primary"></i>
+                                                    </div>
+                                                    <div class="col-sm-8 text-center">
+                                                        <h5>{{ toplamHikaye }} Adet</h5>
+                                                        <span>Hikaye Başlatıldı</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 card-block-big">
+                                                <div class="row">
+                                                    <div class="col-sm-4">
+                                                        <i class="icofont icofont-refresh text-primary"></i>
+                                                    </div>
+                                                    <div class="col-sm-8 text-center">
+                                                        <h5>{{ toplamCevap }} Adet</h5>
+                                                        <span>Cevap Yazıldı</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="">
+                                        <div class="row-table">
+                                            <div class="col-sm-6 card-block-big br">
+                                                <div class="row">
+                                                    <div class="col-sm-4">
+                                                        <i class="icofont icofont-user-suited text-primary"></i>
+                                                    </div>
+                                                    <div class="col-sm-8 text-center">
+                                                        <h5>{{ toplamYazar }} ADET</h5>
+                                                        <span>YAZAR KAYITLI</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 card-block-big">
+                                                <div class="row">
+                                                    <div class="col-sm-4">
+                                                        <i class="icofont icofont-files text-primary"></i>
+                                                    </div>
+                                                    <div class="col-sm-8 text-center">
+                                                        <h5>{{ toplamKategori }} ADET</h5>
+                                                        <span>KATEGORİ</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-12 col-xl-4">
+
+                                <div class="col-lg-12">
+                                    <div class="card card-border-primary">
+                                        <div class="card-header">
+                                            <h5>{{ soncevap.hikayeId.hikayeAdi|default:'Hikaye Cevabı Yok!' }} </h5>
+                                            {% if soncevap %}
+                                                <div class="dropdown-secondary f-right">
+                                                    <strong class="label label-primary">{{ soncevap.uyeId.first_name|default:'-' }} {{ soncevap.uyeId.last_name|default:'-' }}</strong>
+
+
+                                                    <span class="f-left m-r-5 text-inverse">YAZAR : </span>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                        <div class="card-block">
+                                            {{ soncevap.hikayeCevapMetni|default:'Henüz devam ettirilmiş hikaye yok!'|truncatechars:200 }}
+                                        </div>
+                                        {% if soncevap %}
+                                            <div class="card-footer">
+                                                <div class="task-list-table">
+                                                    <p class="task-due"><strong> Cevap Tarihi : </strong><strong
+                                                            class="label label-success">{{ soncevap.hikayeCevapTarih|default:'-' }}</strong>
+                                                    </p>
+                                                </div>
+                                                <div class="task-board m-0">
+
+
+                                                    <div class="dropdown-secondary dropdown">
+                                                        <button class="btn btn-primary btn-mini dropdown-toggle waves-light b-none txt-muted"
+                                                                type="button" id="dropdown3" data-toggle="dropdown"
+                                                                aria-haspopup="true" aria-expanded="false"><i
+                                                                class="icofont icofont-navigation-menu"></i></button>
+                                                        <div class="dropdown-menu" aria-labelledby="dropdown3"
+                                                             data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+                                                            <a class="dropdown-item waves-light waves-effect"
+                                                               href="/hikaye/{{ soncevap.hikayeId.id }}/"><i
+                                                                    class="icofont icofont-eye"></i> Hikayeyi Görüntüle</a>
+                                                            <a class="dropdown-item waves-light waves-effect"
+                                                               href="/cevap-yaz/{{ soncevap.hikayeId.id }}/"><i
+                                                                    class="icofont icofont-ui-edit"></i> Hikayeyi Devam
+                                                                Ettir</a>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                        {% endif %}
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-12 col-xl-4">
+
+                                <div class="card table-card widget-primary-card">
+                                    <div class="">
+                                        <div class="row-table">
+                                            <div class="col-sm-3 card-block-big">
+                                                <i class="icofont icofont-star"></i>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                {% for populerHikaye in enpopulerHikaye %}
+                                                    <h4>{{ populerHikaye.hikayeAdi }}</h4>{% empty %}HİKAYE
+                                                    YOK{% endfor %}
+                                                <h6>EN POPÜLER HİKAYE</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="card table-card widget-success-card">
+                                    <div class="">
+                                        <div class="row-table">
+                                            <div class="col-sm-3 card-block-big">
+                                                <i class="icofont icofont-trophy-alt"></i>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                {% for populerBolum in enpopulerBolum %}
+                                                    <h4>{{ populerBolum.uyeId.first_name }} {{ populerBolum.uyeId.last_name }}<a
+                                                            style="color:#fff;"
+                                                            title="Yazarın Yazdığı Popüler Bölümü Oku >>"
+                                                            href="/hikaye/{{ populerBolum.hikayeId.id }}#{{ populerBolum.id }}"><i
+                                                            class="icofont icofont-arrow-right"></i> </a>
+                                                    </h4>{% empty %}YAZAR YOK{% endfor %}
+                                                <h6>EN POPÜLER BÖLÜM YAZARI</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-12">
+
+
+                                <!-- HTML (DOM) Sourced Data table start -->
+                                <div class="card">
+
+                                    <div class="card-block">
+                                        <div class="accordion-panel">
+
+                                            <div class="container">
+                                                <div class="text-center text-uppercase label label-primary m-b-50">
+                                                    <h4>{{ sonhikaye.hikayeAdi }} SON YAYINLANAN 3 BÖLÜM </h4>
+                                                </div>
+
+
+                                            </div>
+
+                                            <div id="collapseOne" class="panel-collapse in collapse" role="tabpanel"
+                                                 aria-labelledby="headingOne" aria-expanded="true" style="">
+                                                <div class="accordion-content accordion-desc">
+                                                    <h6 class="sub-title m-t-10">HİKAYE ÖZETİ</h6>
+                                                    <p>
+                                                        {{ sonhikaye.hikayeOzet }}
+                                                    </p>
+                                                    <hr>
+                                                </div>
+                                            </div>
+                                            {% for cevap in hikayeler %}
+                                                <div class="timeline-item" date-is='{{ cevap.hikayeCevapTarih }}'>
+                                                    <p>{{ cevap.hikayeCevapMetni }}</p>
+                                                </div>
+                                            {% empty %}
+                                                <div class="alert alert-info icons-alert m-t-20">
+                                                    <p><strong>Maalesef {{ sonhikaye.hikayeAdi }} adlı hikayeye henüz
+                                                        hiç cevap
+                                                        yazılmamış :( İlk yazan sen olmak ister misin?</strong></p>
+                                                </div>
+
+                                            {% endfor %}
+
+                                        </div>
+                                        <div class="text-center">
+                                            <a style="color: #fff;" class="btn btn-inverse" href="/hikaye/{{ sonhikaye.id }}/"><i
+                                                    class="icofont icofont-eye"> TÜM HİKAYEYİ OKU</i></a>
+                                            <a class="btn btn-primary" href="/cevap-yaz/{{ sonhikaye.id }}/"><i
+                                                    class="icofont icofont-ui-add"> HİKAYEYİ DEVAM ETTİR</i></a>
+                                            <a data-toggle="collapse" href="#collapseOne"data-parent="#accordion"
+                                                       aria-expanded="true" aria-controls="collapseOne" class="btn btn-warning"><i
+                                                    class="icofont icofont-info"> HİKAYE ÖZETİNİ GÖSTER/GİZLE</i></a>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                                <!-- HTML (DOM) Sourced Data table end -->
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Page body end -->
+                </div>
+            </div>
+            <!-- Main-body end -->
+        </div>
+    </div>
+
+{% endblock %}

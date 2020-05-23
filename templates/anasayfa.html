@@ -1,0 +1,299 @@
+﻿{% if user.is_authenticated %}
+    {% load staticfiles %}
+
+
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <title>Bitmeyen Hikaye | {{ sayfaBaslik }}</title>
+        <!-- HTML5 Shim and Respond.js IE9 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        <!-- Meta -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+        <meta name="description" content="Karson Ltd Bitmeyen Hikaye">
+        <meta name="keywords"
+              content="karson ltd, Bitmeyen Hikaye">
+        <meta name="author" content="Karson.Com.TR">
+        <!-- Favicon icon -->
+        <link rel="icon" href="{% static 'assets/images/favicon.ico' %}" type="image/x-icon">
+        <!-- Google font-->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+        <!-- Required Fremwork -->
+        <link rel="stylesheet" type="text/css"
+              href="https://cdn.map.web.tr/bower_components/bootstrap/dist/css/bootstrap.min.css">
+        <!-- themify icon -->
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/icon/themify-icons/themify-icons.css' %}">
+        <!-- ico font -->
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/icon/icofont/css/icofont.css' %}">
+        <!-- flag icon framework css -->
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/pages/flag-icon/flag-icon.min.css' %}">
+        <!-- Style.css -->
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/style.css' %}">
+
+        <!--Tema Rengi-->
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/color/color-2.css' %}" id="color"/>
+        <link rel="stylesheet" href="{% static 'assets/css/jquery/jquery-ui.min.css' %}"/>
+        <style>
+            .activenew {
+                background-color: rgba(0, 0, 0, 0.2);
+                color: white;
+            }
+
+            .nav-item:hover, .nav-sub-item:hover, .tek-menu:hover, .nav-sub-item-3:hover {
+                background-color: rgba(0, 0, 0, 0.2);
+            }
+        </style>
+        <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+        <script language="javascript">
+            $(document).ready(function () {
+                $("ul.main-navigation li a[href='" + document.location.pathname + "']").parents('li').addClass('activenew');
+            });
+        </script>
+        {% block css %}
+        {% endblock %}
+    </head>
+
+    <body class="horizontal-icon-fixed">
+    <!-- Pre-loader start -->
+    <div class="theme-loader">
+        <div class="ball-scale">
+            <div></div>
+        </div>
+    </div>
+    <!-- Pre-loader end -->
+
+
+    <!-- Menu header start -->
+    <nav class="navbar header-navbar">
+        <div class="navbar-wrapper">
+            <div class="navbar-logo">
+                <a class="mobile-menu" id="mobile-collapse" href="#!">
+                    <i class="ti-menu"></i>
+                </a>
+                {#            <a class="mobile-search morphsearch-search" href="#">#}
+                {#                <i class="ti-search"></i>#}
+                {#            </a>#}
+                <a href="/index">
+                    <img style="margin-top: -7px" src="{% static 'assets/images/logo.png' %}" alt="Karson-Logo"/>
+                </a>
+                <a class="mobile-options">
+                    <i class="ti-more"></i>
+                </a>
+            </div>
+            <div class="navbar-container container-fluid">
+                <div>
+                    <ul class="nav-left">
+                        <li>
+                            <a id="collapse-menu" href="#">
+                                <i class="ti-menu"></i>
+                            </a>
+                        </li>
+
+
+                    </ul>
+                    <ul class="nav-right">
+                        <li style="z-index:9999;" class="header-notification lng-dropdown">
+                            <a href="#" id="dropdown-active-item">
+                                <i class="flag-icon flag-icon-tr m-r-5"></i> Türkçe
+                            </a>
+                            <ul class="show-notification">
+                                <li>
+                                    <a href="#" data-lng="tr">
+                                        <i class="flag-icon flag-icon-tr m-r-5"></i> Türkçe
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </li>
+                        {#                    <li style="z-index:9999;" class="header-notification">#}
+                        {#                        <a href="#!">#}
+                        {#                            <i class="ti-bell"></i>#}
+                        {#                            <span class="badge">1</span>#}
+                        {#                        </a>#}
+                        {#                        <ul class="show-notification">#}
+                        {#                            <li>#}
+                        {#                                <h6>Bildirimler</h6>#}
+                        {#                                <label class="label label-danger">Yeni</label>#}
+                        {#                            </li>#}
+                        {#                            <li>#}
+                        {#                                <div class="media">#}
+                        {#                                    <img class="d-flex align-self-center"#}
+                        {#                                         src="{% static 'assets/images/pnotify/warning.png' %}"#}
+                        {#                                         alt="Generic placeholder image">#}
+                        {#                                    <div class="media-body">#}
+                        {#                                        <h5 class="notification-user">KarsonLTD</h5>#}
+                        {#                                        <p class="notification-msg">Kritik bir güncelleştirme bulunuyor!</p>#}
+                        {#                                        <span class="notification-time">5 dakika önce</span>#}
+                        {#                                    </div>#}
+                        {#                                </div>#}
+                        {#                            </li>#}
+                        {##}
+                        {#                        </ul>#}
+                        {#                    </li>#}
+
+                        <li style="z-index:9999;" class="user-profile header-notification">
+                            <a href="/profilim">
+                                {#                            <img src="{% static 'assets/images/user.png' %}" alt="User-Profile-Image">#}
+                                <span>Hoşgeldin : {{ user.first_name }} {{ user.last_name }}</span>
+                                <i class="ti-angle-down"></i>
+                            </a>
+                            <ul style="index:-99999;" class="show-notification profile-notification">
+
+                                <li>
+                                    <a href="/profilim">
+                                        <i class="ti-user"></i> Profilim
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/logout">
+                                        <i class="ti-layout-sidebar-left"></i> Çıkış
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <!-- search -->
+
+
+                    <!-- /morphsearch-content -->
+
+                    <!-- search end -->
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- Menu header end -->
+    <!-- Menu aside start -->
+    <div class="main-menu" id="main-menu">
+        <div class="main-menu-header">
+            {#        <img class="img-40" src="assets/images/user.png" alt="User-Profile-Image">#}
+            <div class="user-details">
+                <span>{{ user.first_name }} {{ user.last_name }}</span>
+                {#            <span id="more-details">Personel<i class="icon-arrow-down"></i></span>#}
+            </div>
+        </div>
+
+
+        <div class="main-menu-content">
+            <ul class="main-navigation">
+
+                {% for kategoriler in kategori %}
+
+                        <li class="nav-item">
+                            <a href="/kategori/{{ kategoriler.id }}">
+                                <i class="{{ kategoriler.kategoriIcon }}"></i>
+                                <span>{{ kategoriler.kategoriAdi }}</span>
+                            </a>
+                        </li>
+
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <!-- Menu aside end -->
+
+
+    <!-- Main-body start-->
+    {% block content %}
+    {% endblock %}
+
+    <!-- Main-body end-->
+    <!-- Warning Section Starts -->
+    <!-- Older IE warning message -->
+    <!--[if lt IE 9]>
+<div class="ie-warning">
+<h1>Warning!!</h1>
+<p>You are using an outdated version of Internet Explorer, please upgrade <br/>to any of the following web browsers to access this website.</p>
+<div class="iew-container">
+    <ul class="iew-download">
+        <li>
+            <a href="http://www.google.com/chrome/">
+                <img src="{% static 'assets/images/browser/chrome.png' %}" alt="Chrome">
+                <div>Chrome</div>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.mozilla.org/en-US/firefox/new/">
+                <img src="{% static 'assets/images/browser/firefox.png' %}" alt="Firefox">
+                <div>Firefox</div>
+            </a>
+        </li>
+        <li>
+            <a href="http://www.opera.com">
+                <img src="{% static 'assets/images/browser/opera.png' %}" alt="Opera">
+                <div>Opera</div>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.apple.com/safari/">
+                <img src="{% static 'assets/images/browser/safari.png' %}" alt="Safari">
+                <div>Safari</div>
+            </a>
+        </li>
+        <li>
+            <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">
+                <img src="{% static 'assets/images/browser/ie.png' %}" alt="">
+                <div>IE (9 & above)</div>
+            </a>
+        </li>
+    </ul>
+</div>
+<p>Sorry for the inconvenience!</p>
+</div>
+<![endif]-->
+    <!-- Warning Section Ends -->
+    <!-- Required Jqurey -->
+
+    <script type="text/javascript"
+            src="https://cdn.map.web.tr/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdn.map.web.tr/bower_components/jquery-ui/jquery-ui.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdn.map.web.tr/bower_components/tether/dist/js/tether.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdn.map.web.tr/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- jquery slimscroll js -->
+    <script type="text/javascript"
+            src="https://cdn.map.web.tr/bower_components/jquery-slimscroll/jquery.slimscroll.js"></script>
+    <!-- modernizr js -->
+    <script type="text/javascript"
+            src="https://cdn.map.web.tr/bower_components/modernizr/modernizr.js"></script>
+    <script type="text/javascript"
+            src="https://cdn.map.web.tr/bower_components/modernizr/feature-detects/css-scrollbars.js"></script>
+    <!-- i18next.min.js -->
+    <script type="text/javascript"
+            src="https://cdn.map.web.tr/bower_components/i18next/i18next.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdn.map.web.tr/bower_components/i18next-xhr-backend/i18nextXHRBackend.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdn.map.web.tr/bower_components/i18next-browser-languagedetector/i18nextBrowserLanguageDetector.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdn.map.web.tr/bower_components/jquery-i18next/jquery-i18next.min.js"></script>
+    <!-- Custom js -->
+    <script type="text/javascript"
+            src="{% static 'assets/pages/dashboard/custom-dashboard.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/js/script.js' %}"></script>
+    <!-- Date-dropper js -->
+
+    <!-- classie js -->
+    <script type="text/javascript"
+            src="https://cdn.map.web.tr/bower_components/classie/classie.js"></script>
+
+
+
+    {% block js %}
+    {% endblock %}
+
+
+    </body>
+
+    </html>
+{% else %}
+    <meta http-equiv="REFRESH" content="0;url=/login">
+{% endif %}
